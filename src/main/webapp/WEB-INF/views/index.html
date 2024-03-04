@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="/layout :: head">
+    <title>Posts List</title>
+</head>
+<body>
+<h3>Posts</h3>
+<p>
+    <a th:href="@{/posts/create}">
+        Add new post
+    </a>
+</p>
+<table id = "posts">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Img</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row,rowStat : ${posts}">
+        <td th:text="${row.getName()}"></td>
+        <td th:text="${row.getTitle()}"></td>
+        <td th:text="${row.getDescription()}"></td>
+        <td><img th:src="@{'/image/'+${row.getImg()}}" width="100"></td>
+        <td><a th:href="@{/posts/{id}/edit(id=${row.getId()})}">edit</a></td>
+        <td><a th:href="@{/posts/{id}/delete(id=${row.getId()})}">delete</a></td>
+        <td><a th:href="@{/posts/{id}/view(id=${row.getId()})}">view</a></td>
+    </tr>
+    </tbody>
+</table>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

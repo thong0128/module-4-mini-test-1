@@ -1,5 +1,7 @@
 package com.codegym.configuration;
 
+import com.codegym.service.IPostsService;
+import com.codegym.service.PostsService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -64,8 +66,8 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
         thymeleafViewResolver.setCharacterEncoding("UTF-8");
         return thymeleafViewResolver;
     }
-//    @Bean
-//    public IBookService bookService(){
-//        return new BookService();
-//    }
+    @Bean
+    public IPostsService postsService(){
+        return new PostsService();
+    }
 }
