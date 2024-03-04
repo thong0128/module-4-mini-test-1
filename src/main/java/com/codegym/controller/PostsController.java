@@ -57,4 +57,9 @@ public class PostsController {
         model.addAttribute("posts", postsService.findById(id));
         return "delete";
     }
+    @PostMapping("/delete")
+    public String remove(Posts posts){
+        postsService.remove(posts.getId());
+        return "redirect:/posts";
+    }
 }
