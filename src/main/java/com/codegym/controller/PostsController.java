@@ -67,4 +67,24 @@ public class PostsController {
         model.addAttribute("post", postsService.findById(id));
         return "view";
     }
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable int id, Model model){
+        model.addAttribute("post", postsService.findById(id));
+        return "edit";
+    }
+    @PostMapping("/update")
+    public String update(PostsForm postsForm, Model model) throws IOException {
+        MultipartFile multipartFile = postsForm.getImg();
+        String fileName = multipartFile.getOriginalFilename();
+        FileCopyUtils.copy(multipartFile.getBytes(), new File(upload+fileName));
+
+        Posts post = new Posts();
+        post.setId(postsForm.getId());
+        post.setName(postsForm.getName());
+        post.setTitle(postsForm.getTitle());
+        post.setDescription(postsForm.getDescription());
+        post.setImg(fileName);
+        postsService.save(post);
+        return "redirect:/posts";
+    }
 }
