@@ -73,17 +73,22 @@ public class PostsController {
         return "edit";
     }
     @PostMapping("/update")
-    public String update(PostsForm postsForm, Model model) throws IOException {
+    public String update(PostsForm postsForm) throws IOException {
         MultipartFile multipartFile = postsForm.getImg();
-        String fileName = multipartFile.getOriginalFilename();
-        FileCopyUtils.copy(multipartFile.getBytes(), new File(upload+fileName));
-
         Posts post = new Posts();
         post.setId(postsForm.getId());
         post.setName(postsForm.getName());
         post.setTitle(postsForm.getTitle());
         post.setDescription(postsForm.getDescription());
-        post.setImg(fileName);
+        String fileName = multipartFile.getOriginalFilename();
+        if(fileName != null && !fileName.isEmpty()){
+            FileCopyUtils.copy(multipartFile.getBytes(), new File(upload+fileName));
+            post.setImg(fileName);
+        }else {
+            String originalFilename = postsService.findById(postsForm.getId()).getImg();
+            post.setImg(originalFilename);
+        }
+//        postsService.update(post);
         postsService.save(post);
         return "redirect:/posts";
     }
