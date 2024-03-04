@@ -62,4 +62,9 @@ public class PostsController {
         postsService.remove(posts.getId());
         return "redirect:/posts";
     }
+    @GetMapping("/{id}/view")
+    public String detail(@PathVariable int id, Model model){
+        model.addAttribute("post", postsService.findById(id));
+        return "view";
+    }
 }

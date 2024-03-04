@@ -27,7 +27,7 @@
         <td th:text="${row.getName()}"></td>
         <td th:text="${row.getTitle()}"></td>
         <td th:text="${row.getDescription()}"></td>
-        <td><img th:src="@{'/image/'+${row.getImg()}}" width="100"></td>
+        <td><img th:src="@{'/image/'+${row.getImg()}}" width="100" alt="img"></td>
         <td><a th:href="@{/posts/{id}/edit(id=${row.getId()})}">edit</a></td>
         <td><a th:href="@{/posts/{id}/delete(id=${row.getId()})}">delete</a></td>
         <td><a th:href="@{/posts/{id}/view(id=${row.getId()})}">view</a></td>
